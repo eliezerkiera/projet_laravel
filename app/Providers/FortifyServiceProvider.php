@@ -13,8 +13,16 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponstContract;
+use App\Http\Responses\RegisterResponse;
+use Laravel\Fortify\Contracts\PasswordUpdateResponse as PasswordUpdateResponseContract;
+use App\Http\Responses\PasswordUpdateResponse;
+use App\Traits\PageParamsView;
+
 class FortifyServiceProvider extends ServiceProvider
 {
+
+    use PageParamsView;
     /**
      * Register any application services.
      */
@@ -28,6 +36,32 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Fortify::loginView(function () {
+            return view('auth.login')->with('pageParams',$this->getPageParams());
+        });
+
+        Fortify::registerView(function () {
+            return view('auth.register')->with('pageParams',$this->getPageParams());
+        });
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password')->with('pageParams',$this->getPageParams());
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('auth.reset-password', ['request' => $request])->with('pageParams',$this->getPageParams());
+        });
+
+         Fortify::verifyEmailView(function () {
+             return view('auth.verify-email')->with('pageParams',$this->getPageParams());
+         });
+
+         Fortify::confirmPasswordView(function () {
+             return view('auth.confirm-password')->with('pageParams',$this->getPageParams());
+         });
+
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
@@ -42,5 +76,11 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+
+
+
+        $this->app->singleton(RegisterResponstContract::class, RegisterResponse::class);
+        $this->app->singleton(PasswordUpdateResponseContract::class, PasswordUpdateResponse::class);
     }
 }
