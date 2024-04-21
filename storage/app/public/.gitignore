@@ -1,2 +1,4 @@
 *
+!/country
+!/country/*
 !.gitignore
