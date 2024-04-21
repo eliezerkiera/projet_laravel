@@ -1,3 +1,9 @@
-<div>
-    <!-- Be present above all else. - Naval Ravikant -->
+@extends('layouts.auth')
+@section('title', __('auth.login-page-title'))
+
+@section('content')
+<div class="row d-flex justify-content-center align-items-center">
+
 </div>
+
+@endsection
