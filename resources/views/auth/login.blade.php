@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row d-flex justify-content-center align-items-center">
-
+    <x-auth.login-form />
 </div>
 
 @endsection
