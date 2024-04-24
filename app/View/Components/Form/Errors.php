@@ -10,12 +10,14 @@ class Errors extends Component
 {
 
     public string $name;
+    public bool $isWired;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $name = '')
+    public function __construct(string $name = '' , bool $isWired = false)
     {
         $this->name = $name;
+        $this->isWired = $isWired;
     }
 
     /**

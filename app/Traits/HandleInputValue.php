@@ -5,11 +5,12 @@ namespace App\Traits;
 
 trait HandleInputValue
 {
-    public function getValue(string $name = "", $default)
+    public function getValue()
     {
-
-        if($this->isWired)
-        return old($name, $default);
+        if(!$this->isWired)
+        {
+            return old($this->name, $this->defaultValue);
+        }
     }
 
 
