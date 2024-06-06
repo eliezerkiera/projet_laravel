@@ -17,18 +17,26 @@ class Checkbox extends Component
     public string | int $value;
     public string $id;
 
+    public bool $isWired;
+    public bool $showErrors;
+
     /**
      * Create a new component instance.
      */
     public function __construct(
         string $name,
         string $label = '',
-        string | int $value = 1
+        string | int $value = 1,
+
+        bool $isWired = false,
+        bool $showErrors = false
     )
     {
         $this->name = $name;
         $this->label = $label;
         $this->value = $value;
+        $this->isWired = $isWired;
+        $this->showErrors = $showErrors;
         $this->id = $this->generateId('checkbox');
     }
 
