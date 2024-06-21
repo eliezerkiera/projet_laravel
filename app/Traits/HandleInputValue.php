@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Str;
 
 trait HandleInputValue
 {
@@ -16,6 +17,13 @@ trait HandleInputValue
 
     public function generateId($type)
     {
-        return "form-input-".$type."-".$this->name;
+        $random=Str::random(4);
+        return "form-input-".$type."-".$this->name."-".$random;
+    }
+
+    public function checkError()
+    {
+        $errors = session()->get('errors');
+        return ($this->showErrors && $errors->has($this->name)) ? true : false;
     }
 }

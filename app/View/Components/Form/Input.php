@@ -7,36 +7,39 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Select extends Component
+class Input extends Component
 {
-    use HandleInputValue;
     /**
      * Create a new component instance.
      */
 
-     public string $name;
-     public string $label;
+     use HandleInputValue;
+     /**
+      * Create a new component instance.
+      */
 
-     public bool $isWired;
-     public bool $showErrors;
+      public string $name;
+      public string $label;
 
-     public string | int $defaultValue;
-     public string | int $value;
+      public bool $isWired;
+      public bool $showErrors;
 
-     public string $id;
+      public string | int $defaultValue;
+      public string | int $value;
 
-
-     public array $options;
-
-     public bool $hasError;
+      public string $id;
 
 
-    public function __construct(
+      public string $type;
+
+      public bool $hasError;
+
+      public function __construct(
         string $name,
         string $label = '',
         bool $isWired = false,
         bool $showErrors = false,
-        array $options = [],
+        string $type = "text",
         string | int $defaultValue = ''
     )
     {
@@ -44,11 +47,11 @@ class Select extends Component
         $this->label= $label;
         $this->isWired = $isWired;
         $this->showErrors = $showErrors;
-        $this->options = $options;
+        $this->type = $type;
         $this->defaultValue = $defaultValue;
         $this->value = $this->getValue();
 
-        $this->id = $this->generateId('select');
+        $this->id = $this->generateId($this->type);
 
         $this->hasError = $this->checkError();
 
@@ -59,6 +62,6 @@ class Select extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.select');
+        return view('components.form.input');
     }
 }

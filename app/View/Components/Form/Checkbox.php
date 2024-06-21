@@ -20,6 +20,10 @@ class Checkbox extends Component
     public bool $isWired;
     public bool $showErrors;
 
+    public string | int | null $defaultValue;
+    public bool $isChecked;
+    public bool $hasError;
+
     /**
      * Create a new component instance.
      */
@@ -29,7 +33,8 @@ class Checkbox extends Component
         string | int $value = 1,
 
         bool $isWired = false,
-        bool $showErrors = false
+        bool $showErrors = false,
+        string |int | null $defaultValue = null
     )
     {
         $this->name = $name;
@@ -38,6 +43,12 @@ class Checkbox extends Component
         $this->isWired = $isWired;
         $this->showErrors = $showErrors;
         $this->id = $this->generateId('checkbox');
+        $this->defaultValue = $defaultValue;
+
+        $value = $this->getValue();
+
+        $this->isChecked = ($value == $this->value) ? true : false;
+        $this->hasError = $this->checkError();
     }
 
     /**

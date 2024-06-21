@@ -1,10 +1,14 @@
 <div>
     <div class="form-check">
-        <input {{ $attributes->merge(['class' => 'form-check-input']) }} type="checkbox" :value="$value"
-            :id="$id">
+        <input
+            {{$attributes->class(['form-check-input','is-invalid'=>$hasError])}}
+            :name="$name"
+            type="checkbox"
+            :id="$id"
+            @checked($isChecked) />
 
 
-        <x-form.label :label="$label" :for="$id" {{ $attributes->merge(['class' => 'form-check-label']) }} />
+        <x-form.label :label="$label" :for="$id" class="form-check-label"/>
 
     </div>
     @if ($showErrors)
