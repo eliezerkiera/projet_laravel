@@ -9,6 +9,7 @@
         "laravel/fortify": "^1.24",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "laravolt/avatar": "^6.0",
         "livewire/livewire": "^3.5"
     },
     "require-dev": {
